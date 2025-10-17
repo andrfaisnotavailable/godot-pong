@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://o0s1krrudg7d"]
+
+[ext_resource type="Script" uid="uid://nbnj2yebkvww" path="res://scripts/ScreenCollider.cs" id="1_8f0s8"]
+[ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/player.tscn" id="1_dptha"]
+[ext_resource type="Script" uid="uid://ctjocdtydbrx8" path="res://scripts/Player.cs" id="2_56hty"]
+[ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="3_56hty"]
+[ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/computer.tscn" id="4_i8e3s"]
+
+[node name="dong" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Camera2D"]
+
+[node name="ScreenCollider" type="CollisionPolygon2D" parent="Camera2D/Area2D"]
+scale = Vector2(128, 33.94)
+polygon = PackedVector2Array(-5.5, -10.5, 5.5, -10.5, 5.5, 10.5, -5.5, 10.5, -5.5, -10.5, -4.5, 9.5, 4.5, 9.5, 4.5, -9.5, -4.5, -9.5, -4.5, 9.5)
+script = ExtResource("1_8f0s8")
+
+[node name="Player" parent="." instance=ExtResource("1_dptha")]
+position = Vector2(565, 0)
+script = ExtResource("2_56hty")
+
+[node name="Ball" parent="." instance=ExtResource("3_56hty")]
+
+[node name="Computer" parent="." instance=ExtResource("4_i8e3s")]
+position = Vector2(-565, 0)
+
+[connection signal="body_entered" from="Camera2D/Area2D" to="Player" method="OnScreenEntered"]

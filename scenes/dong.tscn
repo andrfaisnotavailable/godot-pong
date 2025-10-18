@@ -11,6 +11,7 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="Camera2D"]
+visible = false
 
 [node name="ScreenCollider" type="CollisionPolygon2D" parent="Camera2D/Area2D"]
 scale = Vector2(128, 33.3929)

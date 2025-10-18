@@ -15,37 +15,36 @@ namespace Dong
 	public partial class OrangeDong : CharacterBody2D
 	{
 		public const float Speed = 300.0f;
-		private bool exitingScreen = false;
 
 		public override void _PhysicsProcess(double delta)
 		{
-			Vector2 tempVelocity = Velocity;
-			Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-			if (direction != Vector2.Zero)
+			float halfViewportHeight = GetViewport().GetVisibleRect().Size.Y / 2;
+			float halfNodeHeight = GetChild<Sprite2D>(0, true).Texture.GetHeight() / 2;
+
+			float availableSpace = halfViewportHeight - halfNodeHeight;
+
+			Vector2 currentPosition = Position;
+			Vector2 currentVelocity = Velocity;
+
+			Vector2 currentDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+			if (currentDirection != Vector2.Zero)
 			{
-				if (!exitingScreen)
-					tempVelocity.Y = direction.Y * Speed;
-				else
-				{
-					tempVelocity.Y = -direction.Y * Speed * 2;
-					exitingScreen = false;
-				}
+				currentVelocity.Y = currentDirection.Y * Speed;
 			}
 			else
 			{
-				tempVelocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+				currentVelocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 			}
-
-			Velocity = tempVelocity;
+			
+			Velocity = currentVelocity;
 			MoveAndSlide();
 
-		}
-
-		private void OnScreenEntered(Node2D body)
-		{
-			if (body is OrangeDong)
+			if (Math.Abs(currentPosition.Y) > Math.Abs(availableSpace))
 			{
-				exitingScreen = true;
+				Vector2 stubPosition;
+				stubPosition.X = currentPosition.X;
+				stubPosition.Y = (currentPosition.Y > 0) ? (currentPosition.Y - 1) : (currentPosition.Y + 1);
+				Position = stubPosition;
 			}
 		}
 	}

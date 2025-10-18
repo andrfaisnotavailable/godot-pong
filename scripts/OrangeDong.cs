@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics.Contracts;
 
 // Godot classes need 'partial' modifier cause godot uses source generation instead of reflection.
 // Source generation is supposed to create code during compilation instead reflections manipulates
@@ -14,7 +15,11 @@ namespace Dong
 {
 	public partial class OrangeDong : CharacterBody2D
 	{
-		public const float Speed = 300.0f;
+		[Export]
+		public float Speed { get; set; } = 300.0f;
+		[Export]
+		public bool stopOnWall = true;
+		private int pixelBuffer = 4;
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -29,7 +34,17 @@ namespace Dong
 			Vector2 currentDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 			if (currentDirection != Vector2.Zero)
 			{
-				currentVelocity.Y = currentDirection.Y * Speed;
+				// check the proximity to the screen limits
+				if (Math.Abs(currentPosition.Y) > (Math.Abs(availableSpace) - pixelBuffer) && stopOnWall)
+				{
+					// if the user still wants to go in the direction of the screen limit, stop the paddle
+					if ((currentDirection.Y < 0 && currentPosition.Y < 0) || (currentDirection.Y > 0 && currentPosition.Y > 0))
+						currentVelocity.Y = 0;
+					else
+						currentVelocity.Y = currentDirection.Y * Speed;
+				}
+				else
+						currentVelocity.Y = currentDirection.Y * Speed;
 			}
 			else
 			{
@@ -38,14 +53,6 @@ namespace Dong
 			
 			Velocity = currentVelocity;
 			MoveAndSlide();
-
-			if (Math.Abs(currentPosition.Y) > Math.Abs(availableSpace))
-			{
-				Vector2 stubPosition;
-				stubPosition.X = currentPosition.X;
-				stubPosition.Y = (currentPosition.Y > 0) ? (currentPosition.Y - 1) : (currentPosition.Y + 1);
-				Position = stubPosition;
-			}
 		}
 	}
 }

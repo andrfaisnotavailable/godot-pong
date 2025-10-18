@@ -24,7 +24,7 @@ position = Vector2(-565, 0)
 [node name="Ball" parent="." instance=ExtResource("3_56hty")]
 
 [node name="OrangeDong" parent="." instance=ExtResource("1_dptha")]
-position = Vector2(565, 0)
+position = Vector2(565, -1)
 script = ExtResource("3_8f0s8")
 
 [connection signal="body_entered" from="Camera2D/Area2D" to="OrangeDong" method="OnScreenEntered"]

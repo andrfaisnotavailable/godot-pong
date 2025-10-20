@@ -27,10 +27,10 @@ namespace Dong
 				_hit.Play();
 				if (collision.GetCollider() is PhysicsBody2D)
 				{
-					PhysicsBody2D collisionBody = collision.GetCollider() as PhysicsBody2D;
+					PhysicsBody2D collidedBody = collision.GetCollider() as PhysicsBody2D;
 					// 3: BlueGoal
 					// 4: OrangeGoal
-					if (IsOnLayer(collisionBody, 3) || IsOnLayer(collisionBody, 4))
+					if (IsOnLayer(collidedBody, 3) || IsOnLayer(collidedBody, 4))
                     {
 						ResetBall(Vector2.Zero);
                     }

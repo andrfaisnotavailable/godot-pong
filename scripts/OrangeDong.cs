@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Diagnostics.Contracts;
 
 // Godot classes need 'partial' modifier cause godot uses source generation instead of reflection.
 // Source generation is supposed to create code during compilation instead reflections manipulates
@@ -18,15 +17,15 @@ namespace Dong
 		[Export]
 		public float Speed { get; set; } = 300.0f;
 		[Export]
-		public bool stopOnWall = true;
-		private int pixelBuffer = 4;
-		private float SHSound_LastDirection = 0;
-		private bool SHSound_Played = false;
+		public bool StopOnWall = true;
+		private int _pixelBuffer = 4;
+		private float _SHSound_lastDirection = 0;
+		private bool _SHSound_played = false;
 
-		private AudioStreamPlayer screenHit;
+		private AudioStreamPlayer _screenHit;
 		public override void _Ready()
 		{
-			screenHit = GetNode<AudioStreamPlayer>("ScreenHit");
+			_screenHit = GetNode<AudioStreamPlayer>("ScreenHit");
 		}
 
 		public override void _PhysicsProcess(double delta)
@@ -43,7 +42,7 @@ namespace Dong
 			if (currentDirection != Vector2.Zero)
 			{
 				// check the proximity to the screen limits
-				if (Math.Abs(currentPosition.Y) > (Math.Abs(availableSpace) - pixelBuffer) && stopOnWall)
+				if (Math.Abs(currentPosition.Y) > (Math.Abs(availableSpace) - _pixelBuffer) && StopOnWall)
 				{
 					SHSound_CheckDirectionChange(currentDirection.Y);
 
@@ -51,7 +50,7 @@ namespace Dong
 					if ((currentDirection.Y < 0 && currentPosition.Y < 0) || (currentDirection.Y > 0 && currentPosition.Y > 0))
 					{
 						currentVelocity.Y = 0;
-						SHSound_TryPlay(SHSound_Played);
+						SHSound_TryPlay(_SHSound_played);
 					}
 					else
 						currentVelocity.Y = currentDirection.Y * Speed;
@@ -68,13 +67,13 @@ namespace Dong
 
 		private void SHSound_CheckDirectionChange(float currDir)
 		{
-			if (SHSound_Played)
+			if (_SHSound_played)
 			{
 				// if the sound has been played check for input direction switched since the last play
-				if (SHSound_LastDirection != currDir)
+				if (_SHSound_lastDirection != currDir)
 				{
-					SHSound_LastDirection = currDir;
-					SHSound_Played = false;
+					_SHSound_lastDirection = currDir;
+					_SHSound_played = false;
 				}
 			}
 		}
@@ -86,8 +85,8 @@ namespace Dong
 		{
 			if (!playable)
 			{
-				screenHit.Play();
-				SHSound_Played = true;
+				_screenHit.Play();
+				_SHSound_played = true;
 			}
 		}
 	}

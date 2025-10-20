@@ -20,6 +20,8 @@ namespace Dong
 		[Export]
 		public bool stopOnWall = true;
 		private int pixelBuffer = 4;
+		private float SHSound_LastDirection = 0;
+		private bool SHSound_Played = false;
 
 		private AudioStreamPlayer screenHit;
 		public override void _Ready()
@@ -43,25 +45,50 @@ namespace Dong
 				// check the proximity to the screen limits
 				if (Math.Abs(currentPosition.Y) > (Math.Abs(availableSpace) - pixelBuffer) && stopOnWall)
 				{
+					SHSound_CheckDirectionChange(currentDirection.Y);
+
 					// if the user still wants to go in the direction of the screen limit, stop the paddle
 					if ((currentDirection.Y < 0 && currentPosition.Y < 0) || (currentDirection.Y > 0 && currentPosition.Y > 0))
-                    {
+					{
 						currentVelocity.Y = 0;
-						screenHit.Play();
-                    }
+						SHSound_TryPlay(SHSound_Played);
+					}
 					else
 						currentVelocity.Y = currentDirection.Y * Speed;
 				}
 				else
-						currentVelocity.Y = currentDirection.Y * Speed;
+					currentVelocity.Y = currentDirection.Y * Speed;
 			}
 			else
-			{
 				currentVelocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-			}
-			
+
 			Velocity = currentVelocity;
 			MoveAndSlide();
+		}
+
+		private void SHSound_CheckDirectionChange(float currDir)
+		{
+			if (SHSound_Played)
+			{
+				// if the sound has been played check for input direction switched since the last play
+				if (SHSound_LastDirection != currDir)
+				{
+					SHSound_LastDirection = currDir;
+					SHSound_Played = false;
+				}
+			}
+		}
+
+		// The conditions to play the sound are:
+		// - the player hasn't yet hit the screen
+		// - the input direction is changed at least once since the last hit
+		private void SHSound_TryPlay(bool playable)
+		{
+			if (!playable)
+			{
+				screenHit.Play();
+				SHSound_Played = true;
+			}
 		}
 	}
 }

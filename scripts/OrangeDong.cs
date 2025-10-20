@@ -32,7 +32,7 @@ namespace Dong
 		public override void _PhysicsProcess(double delta)
 		{
 			float halfViewportHeight = GetViewport().GetVisibleRect().Size.Y / 2;
-			float halfNodeHeight = GetChild<Sprite2D>(0, true).Texture.GetHeight() / 2;
+			float halfNodeHeight = GetChild<Sprite2D>(0, true).Texture.GetHeight() * GetChild<Sprite2D>(0, true).Transform.Scale.Y * Transform.Scale.Y / 2;
 
 			float availableSpace = halfViewportHeight - halfNodeHeight;
 

@@ -14,44 +14,58 @@ namespace Dong
 		{
 			_hit = GetNode<AudioStreamPlayer>("Hit");
 
-			// Direzione casuale iniziale (±x, ±y)
-			var rng = new Random();
-			float angle = (float)(rng.NextDouble() * Math.PI / 2 - Math.PI / 4); // ±45°
-			int dirX = rng.Next(0, 2) == 0 ? -1 : 1;
-
-			_direction = new Vector2(dirX, MathF.Sin(angle)).Normalized();
+			GenerateRandomDirection();
 		}
 
 		public override void _PhysicsProcess(double delta)
 		{
 			Vector2 velocity = _direction * Speed * (float)delta;
 
-			var collision = MoveAndCollide(velocity);
+			KinematicCollision2D collision = MoveAndCollide(velocity);
 			if (collision != null)
 			{
 				_hit.Play();
+				if (collision.GetCollider() is PhysicsBody2D)
+				{
+					PhysicsBody2D collisionBody = collision.GetCollider() as PhysicsBody2D;
+					// 3: BlueGoal
+					// 4: OrangeGoal
+					if (IsOnLayer(collisionBody, 3) || IsOnLayer(collisionBody, 4))
+                    {
+						ResetBall(Vector2.Zero);
+                    }
+				}
 				HandleCollision(collision);
 			}
 		}
 
 		private void HandleCollision(KinematicCollision2D collision)
 		{
-			// Riflette la direzione in base alla normale della superficie colpita
+			// Reflects the direction based on the normal line to the surface hit
 			_direction = _direction.Bounce(collision.GetNormal()).Normalized();
 
-			// Piccolo offset per evitare “attaccamenti” ai bordi
+			// Little offset to avoid intersections within borders
 			Position += collision.GetNormal() * 2f;
 		}
 
 		public void ResetBall(Vector2 position)
 		{
 			GlobalPosition = position;
+			GenerateRandomDirection();
+		}
 
-			// Reimposta una direzione casuale
-			var rng = new Random();
-			float angle = (float)(rng.NextDouble() * Math.PI / 2 - Math.PI / 4);
+		private void GenerateRandomDirection()
+        {
+            Random rng = new();
+			float angle = (float)(rng.NextDouble() * Math.PI / 2 - Math.PI / 4); // ±45°
 			int dirX = rng.Next(0, 2) == 0 ? -1 : 1;
+
 			_direction = new Vector2(dirX, MathF.Sin(angle)).Normalized();
+        }
+
+		private static bool IsOnLayer(PhysicsBody2D body, int layer)
+		{
+			return (body.CollisionLayer & (1u << (layer - 1))) != 0;
 		}
 	}
 }

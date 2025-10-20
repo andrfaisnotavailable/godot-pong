@@ -24,10 +24,36 @@ size = Vector2(48, 648)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="Walls" type="StaticBody2D" parent="Camera2D"]
+collision_layer = 2
+
+[node name="Up" type="CollisionShape2D" parent="Camera2D/Walls"]
+position = Vector2(0, -350)
+shape = SubResource("RectangleShape2D_1hy6h")
+
+[node name="Bottom" type="CollisionShape2D" parent="Camera2D/Walls"]
+position = Vector2(0, 350)
+shape = SubResource("RectangleShape2D_51kyx")
+
+[node name="BlueGoal" type="StaticBody2D" parent="Camera2D"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/BlueGoal"]
+position = Vector2(-600, 0)
+shape = SubResource("RectangleShape2D_fk8fi")
+
+[node name="OrangeGoal" type="StaticBody2D" parent="Camera2D"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/OrangeGoal"]
+position = Vector2(600, 0)
+shape = SubResource("RectangleShape2D_5on26")
+
 [node name="Blue Dong" parent="." instance=ExtResource("4_i8e3s")]
 position = Vector2(-565, 0)
 
 [node name="Ball" parent="." instance=ExtResource("3_56hty")]
+collision_mask = 15
 script = ExtResource("4_1hy6h")
 
 [node name="Hit" type="AudioStreamPlayer" parent="Ball"]
@@ -39,25 +65,3 @@ script = ExtResource("3_8f0s8")
 
 [node name="ScreenHit" type="AudioStreamPlayer" parent="OrangeDong"]
 stream = ExtResource("6_bqgwc")
-
-[node name="Walls" type="StaticBody2D" parent="."]
-
-[node name="Up" type="CollisionShape2D" parent="Walls"]
-position = Vector2(0, -350)
-shape = SubResource("RectangleShape2D_1hy6h")
-
-[node name="Bottom" type="CollisionShape2D" parent="Walls"]
-position = Vector2(0, 350)
-shape = SubResource("RectangleShape2D_51kyx")
-
-[node name="BlueGoal" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlueGoal"]
-position = Vector2(-600, 0)
-shape = SubResource("RectangleShape2D_fk8fi")
-
-[node name="OrangeGoal" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OrangeGoal"]
-position = Vector2(600, 0)
-shape = SubResource("RectangleShape2D_5on26")

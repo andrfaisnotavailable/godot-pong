@@ -21,6 +21,12 @@ namespace Dong
 		public bool stopOnWall = true;
 		private int pixelBuffer = 4;
 
+		private AudioStreamPlayer screenHit;
+		public override void _Ready()
+		{
+			screenHit = GetNode<AudioStreamPlayer>("ScreenHit");
+		}
+
 		public override void _PhysicsProcess(double delta)
 		{
 			float halfViewportHeight = GetViewport().GetVisibleRect().Size.Y / 2;
@@ -39,7 +45,10 @@ namespace Dong
 				{
 					// if the user still wants to go in the direction of the screen limit, stop the paddle
 					if ((currentDirection.Y < 0 && currentPosition.Y < 0) || (currentDirection.Y > 0 && currentPosition.Y > 0))
+                    {
 						currentVelocity.Y = 0;
+						screenHit.Play();
+                    }
 					else
 						currentVelocity.Y = currentDirection.Y * Speed;
 				}

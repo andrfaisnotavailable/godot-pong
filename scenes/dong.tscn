@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=7 format=3 uid="uid://o0s1krrudg7d"]
 
 [ext_resource type="Script" uid="uid://nbnj2yebkvww" path="res://scripts/ScreenCollider.cs" id="1_8f0s8"]
 [ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangeDong.tscn" id="1_dptha"]
 [ext_resource type="Script" uid="uid://j4hejpfyqyd4" path="res://scripts/OrangeDong.cs" id="3_8f0s8"]
 [ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="3_56hty"]
 [ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/blueDong.tscn" id="4_i8e3s"]
+[ext_resource type="AudioStream" uid="uid://vjqbo1yb2klv" path="res://assets/sounds/ttum_mod.mp3" id="6_bqgwc"]
 
 [node name="dong" type="Node2D"]
 
@@ -24,7 +25,10 @@ position = Vector2(-565, 0)
 [node name="Ball" parent="." instance=ExtResource("3_56hty")]
 
 [node name="OrangeDong" parent="." instance=ExtResource("1_dptha")]
-position = Vector2(565, -1)
+position = Vector2(565, 0)
 script = ExtResource("3_8f0s8")
+
+[node name="ScreenHit" type="AudioStreamPlayer" parent="OrangeDong"]
+stream = ExtResource("6_bqgwc")
 
 [connection signal="body_entered" from="Camera2D/Area2D" to="OrangeDong" method="OnScreenEntered"]

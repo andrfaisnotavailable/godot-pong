@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=10 format=3 uid="uid://o0s1krrudg7d"]
 
 [ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangeDong.tscn" id="1_dptha"]
 [ext_resource type="Script" uid="uid://j4hejpfyqyd4" path="res://scripts/OrangeDong.cs" id="3_8f0s8"]
 [ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="3_56hty"]
 [ext_resource type="Script" uid="uid://dao2a8md1lu23" path="res://scripts/Ball.cs" id="4_1hy6h"]
 [ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/blueDong.tscn" id="4_i8e3s"]
-[ext_resource type="AudioStream" uid="uid://iugiwfi2s3la" path="res://assets/sounds/ttum_ball.mp3" id="5_51kyx"]
-[ext_resource type="AudioStream" uid="uid://vjqbo1yb2klv" path="res://assets/sounds/ttum_mod.mp3" id="6_bqgwc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hy6h"]
 size = Vector2(1152, 52)
@@ -56,12 +54,6 @@ position = Vector2(-565, 0)
 collision_mask = 15
 script = ExtResource("4_1hy6h")
 
-[node name="Hit" type="AudioStreamPlayer" parent="Ball"]
-stream = ExtResource("5_51kyx")
-
 [node name="OrangeDong" parent="." instance=ExtResource("1_dptha")]
 position = Vector2(565, 0)
 script = ExtResource("3_8f0s8")
-
-[node name="ScreenHit" type="AudioStreamPlayer" parent="OrangeDong"]
-stream = ExtResource("6_bqgwc")

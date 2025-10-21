@@ -8,12 +8,9 @@ namespace Dong
 		[Export]
 		public float Speed = 300f;
 		private Vector2 _direction;
-		private AudioStreamPlayer _hit;
 
 		public override void _Ready()
 		{
-			_hit = GetNode<AudioStreamPlayer>("Hit");
-
 			GenerateRandomDirection();
 		}
 
@@ -24,7 +21,7 @@ namespace Dong
 			KinematicCollision2D collision = MoveAndCollide(velocity);
 			if (collision != null)
 			{
-				_hit.Play();
+				AudioManager.Instance.PlaySound("BallHit");
 				if (collision.GetCollider() is PhysicsBody2D)
 				{
 					PhysicsBody2D collidedBody = collision.GetCollider() as PhysicsBody2D;

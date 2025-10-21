@@ -22,12 +22,6 @@ namespace Dong
 		private float _SHSound_lastDirection = 0;
 		private bool _SHSound_played = false;
 
-		private AudioStreamPlayer _screenHit;
-		public override void _Ready()
-		{
-			_screenHit = GetNode<AudioStreamPlayer>("ScreenHit");
-		}
-
 		public override void _PhysicsProcess(double delta)
 		{
 			float halfViewportHeight = GetViewport().GetVisibleRect().Size.Y / 2;
@@ -85,7 +79,7 @@ namespace Dong
 		{
 			if (!playable)
 			{
-				_screenHit.Play();
+				AudioManager.Instance.PlaySound("PlayerHit");
 				_SHSound_played = true;
 			}
 		}

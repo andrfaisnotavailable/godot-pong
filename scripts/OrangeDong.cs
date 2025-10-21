@@ -21,6 +21,7 @@ namespace Dong
 		private int _pixelBuffer = 4;
 		private float _SHSound_lastDirection = 0;
 		private bool _SHSound_played = false;
+		private bool _shootingStarsPlayed = false;
 
 		public override void _PhysicsProcess(double delta)
 		{
@@ -57,6 +58,14 @@ namespace Dong
 
 			Velocity = currentVelocity;
 			MoveAndSlide();
+
+			////////////// TOTALLY USELESS BUT WHY NOT /////////////////
+			if (Position.X != 565 && !_shootingStarsPlayed)
+			{
+				AudioManager.Instance.PlaySound("ShootingStars");
+				_shootingStarsPlayed = true;
+			}
+			////////////////////////////////////////////////////////////
 		}
 
 		private void SHSound_CheckDirectionChange(float currDir)

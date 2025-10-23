@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=11 format=3 uid="uid://o0s1krrudg7d"]
 
 [ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangeDong.tscn" id="1_dptha"]
+[ext_resource type="Script" uid="uid://kj51u750b5qh" path="res://scenes/BlueDong.cs" id="2_bqgwc"]
 [ext_resource type="Script" uid="uid://j4hejpfyqyd4" path="res://scripts/OrangeDong.cs" id="3_8f0s8"]
 [ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="3_56hty"]
 [ext_resource type="Script" uid="uid://dao2a8md1lu23" path="res://scripts/Ball.cs" id="4_1hy6h"]
@@ -47,8 +48,9 @@ collision_layer = 8
 position = Vector2(600, 0)
 shape = SubResource("RectangleShape2D_5on26")
 
-[node name="Blue Dong" parent="." instance=ExtResource("4_i8e3s")]
+[node name="BlueDong" parent="." instance=ExtResource("4_i8e3s")]
 position = Vector2(-565, 0)
+script = ExtResource("2_bqgwc")
 
 [node name="Ball" parent="." instance=ExtResource("3_56hty")]
 collision_mask = 15

@@ -30,28 +30,28 @@ namespace Dong
 
 			float availableSpace = halfViewportHeight - halfNodeHeight;
 
-			Vector2 currentPosition = Position;
+			float currentYPosition = Position.Y;
 			Vector2 currentVelocity = Velocity;
 
-			Vector2 currentDirection = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-			if (currentDirection != Vector2.Zero)
+			float currentYDirection = Input.GetAxis("orange_move_up", "orange_move_down");
+			if (currentYDirection != 0)
 			{
 				// check the proximity to the screen limits
-				if (Math.Abs(currentPosition.Y) > (Math.Abs(availableSpace) - _pixelBuffer) && StopOnWall)
+				if (Math.Abs(currentYPosition) > (Math.Abs(availableSpace) - _pixelBuffer) && StopOnWall)
 				{
-					SHSound_CheckDirectionChange(currentDirection.Y);
+					SHSound_CheckDirectionChange(currentYDirection);
 
 					// if the user still wants to go in the direction of the screen limit, stop the paddle
-					if ((currentDirection.Y < 0 && currentPosition.Y < 0) || (currentDirection.Y > 0 && currentPosition.Y > 0))
+					if ((currentYDirection < 0 && currentYPosition < 0) || (currentYDirection > 0 && currentYPosition > 0))
 					{
 						currentVelocity.Y = 0;
 						SHSound_TryPlay(_SHSound_played);
 					}
 					else
-						currentVelocity.Y = currentDirection.Y * Speed;
+						currentVelocity.Y = currentYDirection * Speed;
 				}
 				else
-					currentVelocity.Y = currentDirection.Y * Speed;
+					currentVelocity.Y = currentYDirection * Speed;
 			}
 			else
 				currentVelocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);

@@ -26,7 +26,7 @@ size = Vector2(48, 648)
 [node name="Walls" type="StaticBody2D" parent="Camera2D"]
 collision_layer = 2
 
-[node name="Up" type="CollisionShape2D" parent="Camera2D/Walls"]
+[node name="Top" type="CollisionShape2D" parent="Camera2D/Walls"]
 position = Vector2(0, -350)
 shape = SubResource("RectangleShape2D_1hy6h")
 

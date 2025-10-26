@@ -12,18 +12,17 @@ using System;
 
 namespace Dong
 {
-	public partial class OrangeDong : CharacterBody2D
+	public partial class OrangeDong : CharacterBody2D, IScore
 	{
 		[Export]
 		public float Speed { get; set; } = 300.0f;
 		private Vector2 _inputDir = Vector2.Zero;
     	private bool _touchingWall = false;
-    	private float _lastInputDirY = 0;
-
+		private float _lastInputDirY = 0;
 		public override void _PhysicsProcess(double delta)
 		{
 			_inputDir.Y = Input.GetAxis("orange_move_up", "orange_move_down");
-		
+
 			// If player is touching the wall and the input direction is not changed stay still
 			if (_touchingWall && Math.Sign(_inputDir.Y) == Math.Sign(_lastInputDirY))
 			{
@@ -46,16 +45,31 @@ namespace Dong
 			if (collision != null)
 			{
 				// CollisionLayer 2 = Walls
-                if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == 2)
+				if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == 2)
 				{
 					AudioManager.Instance.PlaySound("PlayerHit");
-                    _touchingWall = true;
+					_touchingWall = true;
 
-                    // Take back the player to the correct position
-                    var remainder = collision.GetRemainder();
-                    Position -= remainder;
-                }
-            }
+					// Take back the player to the correct position
+					var remainder = collision.GetRemainder();
+					Position -= remainder;
+				}
+			}
 		}
+		
+		//////////////////// ISCORE BLOCK //////////////////////////
+		private int _score = 0;
+		public int Score => _score;
+
+		public void GoalScored()
+		{
+			_score += 1;
+		}
+
+		public void ResetScore()
+		{
+			_score = 0;
+		}
+		////////////////////////////////////////////////////////////
 	}
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace Dong
 {
-	public partial class BlueDong : CharacterBody2D
+	public partial class BlueDong : CharacterBody2D, IScore
 	{
 		[Export]
 		public float Speed { get; set; } = 300.0f;
@@ -14,7 +14,7 @@ namespace Dong
 		public override void _PhysicsProcess(double delta)
 		{
 			_inputDir.Y = Input.GetAxis("blue_move_up", "blue_move_down");
-		
+
 			// If player is touching the wall and the input direction is not changed stay still
 			if (_touchingWall && Math.Sign(_inputDir.Y) == Math.Sign(_lastInputDirY))
 			{
@@ -37,16 +37,31 @@ namespace Dong
 			if (collision != null)
 			{
 				// CollisionLayer 2 = Walls
-                if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == 2)
+				if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == 2)
 				{
 					AudioManager.Instance.PlaySound("PlayerHit");
-                    _touchingWall = true;
+					_touchingWall = true;
 
-                    // Take back the player to the correct position
-                    var remainder = collision.GetRemainder();
-                    Position -= remainder;
-                }
-            }
+					// Take back the player to the correct position
+					var remainder = collision.GetRemainder();
+					Position -= remainder;
+				}
+			}
 		}
+		
+		//////////////////// ISCORE BLOCK //////////////////////////
+		private int _score = 0;
+		public int Score => _score;
+
+		public void GoalScored()
+		{
+			_score += 1;
+		}
+
+		public void ResetScore()
+		{
+			_score = 0;
+		}
+		////////////////////////////////////////////////////////////
 	}
 }

@@ -23,28 +23,28 @@ size = Vector2(48, 648)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Walls" type="StaticBody2D" parent="Camera2D"]
+[node name="Walls_Body" type="StaticBody2D" parent="."]
 collision_layer = 2
 
-[node name="Top" type="CollisionShape2D" parent="Camera2D/Walls"]
+[node name="Top_Shape" type="CollisionShape2D" parent="Walls_Body"]
 position = Vector2(0, -350)
 shape = SubResource("RectangleShape2D_1hy6h")
 
-[node name="Bottom" type="CollisionShape2D" parent="Camera2D/Walls"]
+[node name="Bottom_Shape" type="CollisionShape2D" parent="Walls_Body"]
 position = Vector2(0, 350)
 shape = SubResource("RectangleShape2D_51kyx")
 
-[node name="BlueGoal" type="StaticBody2D" parent="Camera2D"]
+[node name="BlueGoal_Body" type="StaticBody2D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/BlueGoal"]
+[node name="BlueGoal_Shape" type="CollisionShape2D" parent="BlueGoal_Body"]
 position = Vector2(-600, 0)
 shape = SubResource("RectangleShape2D_fk8fi")
 
-[node name="OrangeGoal" type="StaticBody2D" parent="Camera2D"]
+[node name="OrangeGoal_Body" type="StaticBody2D" parent="."]
 collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/OrangeGoal"]
+[node name="OrangeGoal_Shape" type="CollisionShape2D" parent="OrangeGoal_Body"]
 position = Vector2(600, 0)
 shape = SubResource("RectangleShape2D_5on26")
 

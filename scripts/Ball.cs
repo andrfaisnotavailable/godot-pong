@@ -5,7 +5,7 @@ namespace Dong
 {
 	public partial class Ball : CharacterBody2D
 	{
-		[Signal] public delegate void GoalScoredEventHandler(string hitSide);
+		[Signal] public delegate void GoalScoredEventHandler(int hitSide);
 		[Export] public float Speed = 300f;
 		private Vector2 _direction;
 
@@ -25,15 +25,13 @@ namespace Dong
 				if (collision.GetCollider() is PhysicsBody2D)
 				{
 					PhysicsBody2D collidedBody = collision.GetCollider() as PhysicsBody2D;
-					// 3: BlueGoal
-					// 4: OrangeGoal
-					if (IsOnLayer(collidedBody, 3))
+					if (IsOnLayer(collidedBody, (int)Enums.CollisionLayers.BLUEGOAL))
 					{
-						EmitSignal(SignalName.GoalScored, "blue");
+						EmitSignal(SignalName.GoalScored, (int)Enums.GoalSide.BLUE);
 					}
-					if (IsOnLayer(collidedBody, 4))
+					if (IsOnLayer(collidedBody, (int)Enums.CollisionLayers.ORANGEGOAL))
                     {
-                        EmitSignal(SignalName.GoalScored, "orange");
+                        EmitSignal(SignalName.GoalScored, (int)Enums.GoalSide.ORANGE);
                     }
 				}
 				HandleCollision(collision);

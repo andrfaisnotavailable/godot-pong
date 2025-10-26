@@ -20,13 +20,14 @@ namespace Dong
 			_ball.GoalScored += OnGoalScored;
 		}
 
-		public void OnGoalScored(string hitSide)
+		public void OnGoalScored(int hitSide)
 		{
-			if (hitSide == "blue")
+			Enums.GoalSide side = (Enums.GoalSide)hitSide;
+			if (side == Enums.GoalSide.BLUE)
 			{
 				_playerOrange.GoalScored();
 			}
-			else if (hitSide == "orange")
+			else if (side == Enums.GoalSide.ORANGE)
 			{
 				_playerBlue.GoalScored();
 			}

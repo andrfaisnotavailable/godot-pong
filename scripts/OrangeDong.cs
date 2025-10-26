@@ -45,7 +45,7 @@ namespace Dong
 			if (collision != null)
 			{
 				// CollisionLayer 2 = Walls
-				if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == 2)
+				if (collision.GetCollider() is PhysicsBody2D collidedBody && collidedBody.CollisionLayer == (int)Enums.CollisionLayers.WALLS)
 				{
 					AudioManager.Instance.PlaySound("PlayerHit");
 					_touchingWall = true;

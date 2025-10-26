@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=12 format=3 uid="uid://o0s1krrudg7d"]
 
+[ext_resource type="PackedScene" uid="uid://b6eapon88ecwl" path="res://scenes/gameManager.tscn" id="1_1hy6h"]
 [ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangeDong.tscn" id="1_dptha"]
 [ext_resource type="Script" uid="uid://kj51u750b5qh" path="res://scripts/BlueDong.cs" id="2_bqgwc"]
 [ext_resource type="Script" uid="uid://j4hejpfyqyd4" path="res://scripts/OrangeDong.cs" id="3_8f0s8"]
@@ -20,6 +21,11 @@ size = Vector2(48, 648)
 size = Vector2(48, 648)
 
 [node name="dong" type="Node2D"]
+
+[node name="GameManager" parent="." instance=ExtResource("1_1hy6h")]
+_playerBluePath = NodePath("../BlueDong")
+_playerOrangePath = NodePath("../OrangeDong")
+_ballPath = NodePath("../Ball")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

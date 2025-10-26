@@ -1,4 +1,4 @@
-namespace Dong
+namespace Pong
 {
     public interface IScore
     {

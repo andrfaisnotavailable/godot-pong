@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://o0s1krrudg7d"]
 
-[ext_resource type="PackedScene" uid="uid://b6eapon88ecwl" path="res://scenes/gameManager.tscn" id="1_1hy6h"]
-[ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangeDong.tscn" id="1_dptha"]
-[ext_resource type="Script" uid="uid://kj51u750b5qh" path="res://scripts/BlueDong.cs" id="2_bqgwc"]
-[ext_resource type="Script" uid="uid://j4hejpfyqyd4" path="res://scripts/OrangeDong.cs" id="3_8f0s8"]
-[ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="3_56hty"]
-[ext_resource type="Script" uid="uid://dao2a8md1lu23" path="res://scripts/Ball.cs" id="4_1hy6h"]
-[ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/blueDong.tscn" id="4_i8e3s"]
+[ext_resource type="PackedScene" uid="uid://b6eapon88ecwl" path="res://scenes/gameManager.tscn" id="1_1gkem"]
+[ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/bluePaddle.tscn" id="2_7q0or"]
+[ext_resource type="Script" uid="uid://dc3hcr4doq472" path="res://scripts/BluePaddle.cs" id="3_1gkem"]
+[ext_resource type="PackedScene" uid="uid://dmlp8i0vif00p" path="res://scenes/ball.tscn" id="4_jjrnv"]
+[ext_resource type="Script" uid="uid://dao2a8md1lu23" path="res://scripts/Ball.cs" id="5_osehs"]
+[ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangePaddle.tscn" id="6_scnf6"]
+[ext_resource type="Script" uid="uid://0p2a86vedb4x" path="res://scripts/OrangePaddle.cs" id="7_7q0or"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hy6h"]
 size = Vector2(1152, 52)
@@ -20,11 +20,11 @@ size = Vector2(48, 648)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5on26"]
 size = Vector2(48, 648)
 
-[node name="dong" type="Node2D"]
+[node name="Pong" type="Node2D"]
 
-[node name="GameManager" parent="." instance=ExtResource("1_1hy6h")]
-_playerBluePath = NodePath("../BlueDong")
-_playerOrangePath = NodePath("../OrangeDong")
+[node name="GameManager" parent="." instance=ExtResource("1_1gkem")]
+_bluePaddleNodePath = NodePath("../BluePaddle")
+_orangePaddleNodePath = NodePath("../OrangePaddle")
 _ballPath = NodePath("../Ball")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -54,16 +54,16 @@ collision_layer = 8
 position = Vector2(600, 0)
 shape = SubResource("RectangleShape2D_5on26")
 
-[node name="BlueDong" parent="." instance=ExtResource("4_i8e3s")]
+[node name="BluePaddle" parent="." instance=ExtResource("2_7q0or")]
 position = Vector2(-565, 0)
 collision_mask = 3
-script = ExtResource("2_bqgwc")
+script = ExtResource("3_1gkem")
 
-[node name="Ball" parent="." instance=ExtResource("3_56hty")]
+[node name="Ball" parent="." instance=ExtResource("4_jjrnv")]
 collision_mask = 15
-script = ExtResource("4_1hy6h")
+script = ExtResource("5_osehs")
 
-[node name="OrangeDong" parent="." instance=ExtResource("1_dptha")]
+[node name="OrangePaddle" parent="." instance=ExtResource("6_scnf6")]
 position = Vector2(565, 0)
 collision_mask = 3
-script = ExtResource("3_8f0s8")
+script = ExtResource("7_7q0or")

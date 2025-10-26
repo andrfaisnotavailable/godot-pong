@@ -1,20 +1,20 @@
 using Godot;
 
-namespace Dong
+namespace Pong
 {
 	public partial class GameManager : Node
 	{
-		[Export] private NodePath _playerBluePath;
-		private BlueDong _playerBlue;
-		[Export] private NodePath _playerOrangePath;
-		private OrangeDong _playerOrange;
+		[Export] private NodePath _bluePaddleNodePath;
+		private BluePaddle _bluePaddle;
+		[Export] private NodePath _orangePaddleNodePath;
+		private OrangePaddle _orangePaddle;
 		[Export] private NodePath _ballPath;
 		private Ball _ball;
 
 		public override void _Ready()
 		{
-			_playerOrange = GetNode<OrangeDong>(_playerOrangePath);
-			_playerBlue = GetNode<BlueDong>(_playerBluePath);
+			_orangePaddle = GetNode<OrangePaddle>(_orangePaddleNodePath);
+			_bluePaddle = GetNode<BluePaddle>(_bluePaddleNodePath);
 			_ball = GetNode<Ball>(_ballPath);
 
 			_ball.GoalScored += OnGoalScored;
@@ -25,14 +25,14 @@ namespace Dong
 			Enums.GoalSide side = (Enums.GoalSide)hitSide;
 			if (side == Enums.GoalSide.BLUE)
 			{
-				_playerOrange.GoalScored();
+				_orangePaddle.GoalScored();
 			}
 			else if (side == Enums.GoalSide.ORANGE)
 			{
-				_playerBlue.GoalScored();
+				_bluePaddle.GoalScored();
 			}
 
-			GD.Print($"Blue score: {_playerBlue.Score}; Orange score: {_playerOrange.Score}");
+			GD.Print($"Blue score: {_bluePaddle.Score}; Orange score: {_orangePaddle.Score}");
 		}
 	}
 }

@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-namespace Dong
+namespace Pong
 {
     public partial class AudioManager : Node
     {

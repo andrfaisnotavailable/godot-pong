@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace Dong
+namespace Pong
 {
 	[Tool]
 	public partial class ScreenCollider : CollisionPolygon2D

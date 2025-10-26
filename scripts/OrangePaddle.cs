@@ -10,9 +10,9 @@ using System;
 // generator -specific files 
 // https://posts.specterops.io/dotnet-source-generators-in-2024-part-1-getting-started-76d619b633f5
 
-namespace Dong
+namespace Pong
 {
-	public partial class OrangeDong : CharacterBody2D, IScore
+	public partial class OrangePaddle : CharacterBody2D, IScore
 	{
 		[Export]
 		public float Speed { get; set; } = 300.0f;

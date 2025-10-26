@@ -1,4 +1,4 @@
-namespace Dong.Enums
+namespace Pong.Enums
 {
     public enum CollisionLayers
     {

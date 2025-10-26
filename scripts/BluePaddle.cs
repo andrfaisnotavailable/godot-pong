@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-namespace Dong
+namespace Pong
 {
-	public partial class BlueDong : CharacterBody2D, IScore
+	public partial class BluePaddle : CharacterBody2D, IScore
 	{
 		[Export]
 		public float Speed { get; set; } = 300.0f;

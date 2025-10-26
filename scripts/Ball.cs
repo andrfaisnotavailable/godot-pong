@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace Dong
+namespace Pong
 {
 	public partial class Ball : CharacterBody2D
 	{

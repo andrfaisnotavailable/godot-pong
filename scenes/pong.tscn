@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=14 format=3 uid="uid://o0s1krrudg7d"]
 
 [ext_resource type="PackedScene" uid="uid://b6eapon88ecwl" path="res://scenes/gameManager.tscn" id="1_1gkem"]
 [ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/bluePaddle.tscn" id="2_7q0or"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dao2a8md1lu23" path="res://scripts/Ball.cs" id="5_osehs"]
 [ext_resource type="PackedScene" uid="uid://dqdiwj7jeix5q" path="res://scenes/orangePaddle.tscn" id="6_scnf6"]
 [ext_resource type="Script" uid="uid://0p2a86vedb4x" path="res://scripts/OrangePaddle.cs" id="7_7q0or"]
+[ext_resource type="Script" uid="uid://dhyuua3ib7k54" path="res://scripts/BlueScoreGUI.cs" id="8_7q0or"]
+[ext_resource type="Script" uid="uid://cwefp8qb517ej" path="res://scripts/OrangeScoreGUI.cs" id="9_me32k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hy6h"]
 size = Vector2(1152, 52)
@@ -67,3 +69,46 @@ script = ExtResource("5_osehs")
 position = Vector2(565, 0)
 collision_mask = 3
 script = ExtResource("7_7q0or")
+
+[node name="ViewportCentered" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GUI" type="MarginContainer" parent="ViewportCentered"]
+custom_minimum_size = Vector2(1152, 20)
+layout_mode = 2
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftHBoxContainer" type="HBoxContainer" parent="ViewportCentered/GUI"]
+layout_mode = 2
+
+[node name="BlueScore" type="Label" parent="ViewportCentered/GUI/LeftHBoxContainer"]
+custom_minimum_size = Vector2(576, 39)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_7q0or")
+_bluePaddleNodePath = NodePath("../../../../BluePaddle")
+
+[node name="RightHBoxContainer" type="HBoxContainer" parent="ViewportCentered/GUI"]
+layout_mode = 2
+alignment = 2
+
+[node name="OrangeScore" type="Label" parent="ViewportCentered/GUI/RightHBoxContainer"]
+custom_minimum_size = Vector2(576, 39)
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_me32k")
+_orangePaddleNodePath = NodePath("../../../../OrangePaddle")

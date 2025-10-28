@@ -31,8 +31,6 @@ namespace Pong
 			{
 				_bluePaddle.GoalScored();
 			}
-
-			GD.Print($"Blue score: {_bluePaddle.Score}; Orange score: {_orangePaddle.Score}");
 		}
 	}
 }

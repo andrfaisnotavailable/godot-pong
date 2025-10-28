@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhenjmme3gi5q"]
+[gd_scene load_steps=4 format=3 uid="uid://bhenjmme3gi5q"]
 
 [ext_resource type="Script" uid="uid://bcg7xcxnml8vn" path="res://scripts/AudioManager.cs" id="1_rtkc8"]
 [ext_resource type="AudioStream" uid="uid://iugiwfi2s3la" path="res://assets/sounds/ttum_ball.mp3" id="2_lmi8f"]
 [ext_resource type="AudioStream" uid="uid://vjqbo1yb2klv" path="res://assets/sounds/ttum_mod.mp3" id="3_a2hv1"]
-[ext_resource type="AudioStream" uid="uid://ciddysaxx6xg1" path="res://assets/sounds/ShootingStars_.mp3" id="4_a2hv1"]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_rtkc8")
@@ -13,6 +12,3 @@ stream = ExtResource("2_lmi8f")
 
 [node name="PlayerHit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_a2hv1")
-
-[node name="ShootingStars" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_a2hv1")

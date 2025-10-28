@@ -31,6 +31,7 @@ namespace Pong
 			{
 				_bluePaddle.GoalScored();
 			}
+			_ball.ResetBall(Vector2.Zero);
 		}
 	}
 }

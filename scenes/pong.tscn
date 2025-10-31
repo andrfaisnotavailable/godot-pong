@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://o0s1krrudg7d"]
+[gd_scene load_steps=15 format=3 uid="uid://o0s1krrudg7d"]
 
 [ext_resource type="PackedScene" uid="uid://b6eapon88ecwl" path="res://scenes/gameManager.tscn" id="1_1gkem"]
 [ext_resource type="PackedScene" uid="uid://1iylkahwylov" path="res://scenes/bluePaddle.tscn" id="2_7q0or"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://0p2a86vedb4x" path="res://scripts/OrangePaddle.cs" id="7_7q0or"]
 [ext_resource type="Script" uid="uid://dhyuua3ib7k54" path="res://scripts/BlueScoreGUI.cs" id="8_7q0or"]
 [ext_resource type="Script" uid="uid://cwefp8qb517ej" path="res://scripts/OrangeScoreGUI.cs" id="9_me32k"]
+[ext_resource type="Texture2D" uid="uid://ddib0xw6eldpg" path="res://assets/sprites/Board.png" id="10_jjrnv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hy6h"]
 size = Vector2(1152, 52)
@@ -30,6 +31,11 @@ _orangePaddleNodePath = NodePath("../OrangePaddle")
 _ballPath = NodePath("../Ball")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+show_behind_parent = true
+scale = Vector2(1.436, 1.436)
+texture = ExtResource("10_jjrnv")
 
 [node name="Walls_Body" type="StaticBody2D" parent="."]
 collision_layer = 2
@@ -86,7 +92,7 @@ grow_vertical = 2
 
 [node name="GUI" type="MarginContainer" parent="ViewportCentered"]
 custom_minimum_size = Vector2(1152, 20)
-layout_mode = 2
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 

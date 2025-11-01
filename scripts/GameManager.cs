@@ -1,4 +1,5 @@
 using Godot;
+using System.Threading.Tasks;
 
 namespace Pong
 {
@@ -10,17 +11,20 @@ namespace Pong
 		private OrangePaddle _orangePaddle;
 		[Export] private NodePath _ballPath;
 		private Ball _ball;
+		[Export] private NodePath _countdownLabelPath;
+		private Label _countdownLabel;
 
 		public override void _Ready()
 		{
 			_orangePaddle = GetNode<OrangePaddle>(_orangePaddleNodePath);
 			_bluePaddle = GetNode<BluePaddle>(_bluePaddleNodePath);
 			_ball = GetNode<Ball>(_ballPath);
+			_countdownLabel = GetNode<Label>(_countdownLabelPath);
 
 			_ball.GoalScored += OnGoalScored;
 		}
 
-		public void OnGoalScored(int hitSide)
+		public async void OnGoalScored(int hitSide)
 		{
 			Enums.GoalSide side = (Enums.GoalSide)hitSide;
 			if (side == Enums.GoalSide.BLUE)
@@ -32,6 +36,24 @@ namespace Pong
 				_bluePaddle.GoalScored();
 			}
 			_ball.ResetBall(Vector2.Zero);
+
+			await ShowCountdownAndRestart();
+		}
+
+		private async Task ShowCountdownAndRestart()
+		{
+			int seconds = 3;
+			_countdownLabel.Visible = true;
+
+			while (seconds > 0)
+			{
+				_countdownLabel.Text = seconds.ToString();
+				await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
+				seconds--;
+			}
+
+			_countdownLabel.Visible = false;
+			_ball.GenerateRandomDirection();
 		}
 	}
 }

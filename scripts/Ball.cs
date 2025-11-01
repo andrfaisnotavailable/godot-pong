@@ -8,6 +8,7 @@ namespace Pong
 		[Signal] public delegate void GoalScoredEventHandler(int hitSide);
 		[Export] public float Speed = 300f;
 		private Vector2 _direction;
+		private bool _isMoving = true;
 
 		public override void _Ready()
 		{
@@ -16,6 +17,9 @@ namespace Pong
 
 		public override void _PhysicsProcess(double delta)
 		{
+			if (!_isMoving)
+            	return;
+
 			Vector2 velocity = _direction * Speed * (float)delta;
 
 			KinematicCollision2D collision = MoveAndCollide(velocity);
@@ -50,16 +54,18 @@ namespace Pong
 		public void ResetBall(Vector2 position)
 		{
 			GlobalPosition = position;
-			GenerateRandomDirection();
+			_isMoving = false;
 		}
 
-		private void GenerateRandomDirection()
+		public void GenerateRandomDirection()
         {
             Random rng = new();
 			float angle = (float)(rng.NextDouble() * Math.PI / 2 - Math.PI / 4); // ±45°
 			int dirX = rng.Next(0, 2) == 0 ? -1 : 1;
 
 			_direction = new Vector2(dirX, MathF.Sin(angle)).Normalized();
+
+			_isMoving = true;
         }
 
 		private static bool IsOnLayer(PhysicsBody2D body, int layer)
